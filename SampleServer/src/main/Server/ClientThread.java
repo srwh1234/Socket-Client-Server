@@ -42,6 +42,7 @@ public class ClientThread extends Thread {
 		try {
 			ClientController.get().putWithPrint(this);
 
+			// 傳送加解密需要的key
 			sendInitialKey();
 
 			while (!socket.isClosed()) {
@@ -67,6 +68,7 @@ public class ClientThread extends Thread {
 		}
 	}
 
+	// 傳送加解密需要的key 初始化XorCipher之後才可對其他封包加密
 	private void sendInitialKey() throws IOException {
 		key = (int) (Math.random() * Integer.MAX_VALUE) + 1;
 		cipher = new XorCipher(key);
